@@ -1,11 +1,10 @@
 <?php
 /**
- * User Model.
+ * Transaction Model.
  *
  * @package   OPTIKPI API
  * @author    Prakash.j <prakash.j@digient.in>
  */
-
 namespace App\Models;
 
     /*
@@ -14,41 +13,23 @@ namespace App\Models;
     |--------------------------------------------------------------------------
     */
 
-    use Illuminate\Auth\Authenticatable;
-    use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-    use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
-    use Laravel\Lumen\Auth\Authorizable;
-    use Illuminate\Support\Facades\Hash;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract
+/**
+ * Transaction class
+ *
+ * @author Prakash.j <prakash.j@digient.in>
+ */
+class Transaction extends Model
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Used Traits
-    |--------------------------------------------------------------------------
-    */
-
-        use Authenticatable, Authorizable, HasFactory;
-
     /*
     |--------------------------------------------------------------------------
     | Protected Properties
     |--------------------------------------------------------------------------
     */
-        protected $primaryKey                   = 'USER_ID';
+        protected $primaryKey   = 'ID';
 
-        protected $table                        = 'user';
-
-        /**
-         * The attributes that are mass assignable.
-         *
-         * @var array
-         */
-        protected $fillable = [
-            'CALL_BACK_URL',
-        ];
+        protected $table        = 'transaction';
 
     /*
     |--------------------------------------------------------------------------
@@ -60,12 +41,30 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     /*
     |--------------------------------------------------------------------------
-    | Public Functions (Note : Public Function Can Be Called Only By Object)
+    | Public Static Functions
     |--------------------------------------------------------------------------
     */
-
-        //
-
+        /**
+         * Create Transaction Log function
+         *
+         * @param string $referenceNo
+         * @param string $bonusId
+         * @param integer $playerId
+         * @param integer $status
+         * @param string $response
+         * @return boolean
+         * @author Prakash.j <prakash.j@digient.in>
+         */
+        public static function createTransactionLog(string $referenceNo, string $bonusId, int $playerId, int $status, string $response) : bool
+        {
+            $transaction                    = new Self();
+            $transaction->TRANSACTION_ID    = $referenceNo;
+            $transaction->BONUS_ID          = $bonusId;
+            $transaction->PLAYER_ID         = $playerId;
+            $transaction->STATUS            = $status;
+            $transaction->RESPONSE_DATA     = $response;
+            return $transaction->save();
+        }
     /*
     |--------------------------------------------------------------------------|
     |         xxxxxxxxxxxx     End Of Document     xxxxxxxxxxxxx               |

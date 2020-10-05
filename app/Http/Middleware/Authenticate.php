@@ -3,42 +3,55 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
+use App\Models\User;
 
 class Authenticate
 {
-    /**
-     * The authentication guard factory instance.
-     *
-     * @var \Illuminate\Contracts\Auth\Factory
-     */
-    protected $auth;
-
-    /**
-     * Create a new middleware instance.
-     *
-     * @param  \Illuminate\Contracts\Auth\Factory  $auth
-     * @return void
-     */
-    public function __construct(Auth $auth)
-    {
-        $this->auth = $auth;
-    }
-
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @param  string|null  $guard
-     * @return mixed
+     * @return Response
+     * @author Prakash.j <prakash.j@prakash.j@digient.in>
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next) : Response
     {
-        if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+        $rules          = [
+            'appId'     => 'bail|required|min:10|max:10',
+            'appKey'    => 'bail|required|min:10|max:10'
+        ];
+
+        $codes      = Config::get('responsecode.authenticateMiddleware') ?? [];
+
+        /** Validatate and Response */
+        $validator  = customValidate($request->all(), $rules, $codes);
+
+        if($validator->fails()) 
+        {
+            /** Return Response */
+            $res    = getValidatorErrors($validator->errors()->toArray());
+
+            $logData        = [
+                'action'    => 'Authenticate Input Validations Failed',
+                'data'      => json_encode($res)
+            ];
+
+            return returnResponse($res);
         }
 
-        return $next($request);
+        $user                   = User::where(['APP_ID' => $request['appId'], 'APP_KEY' => $request['appKey']])->first() ?? null;
+
+        if($user) 
+        {
+            $request['user']    = $user->toArray();
+            return $next($request);
+        }
+
+        return returnResponse([$codes['credentialIncorrect']]);
+        
     }
 }
