@@ -21,8 +21,8 @@ class Authenticate
     public function handle($request, Closure $next) : Response
     {
         $rules          = [
-            'appId'     => 'bail|required|min:10|max:10',
-            'appKey'    => 'bail|required|min:10|max:10'
+            'appId'     => 'bail|required|Integer',
+            'appKey'    => 'bail|required'
         ];
 
         $codes      = Config::get('responsecode.authenticateMiddleware') ?? [];
@@ -43,9 +43,13 @@ class Authenticate
             return returnResponse($res);
         }
 
-        $user                   = User::where(['APP_ID' => $request['appId'], 'APP_KEY' => $request['appKey']])->first() ?? null;
+        $user                   = User::leftJoin('partner_details', function($join) {
+                                    $join->on('partner.PARTNER_ID', '=', 'partner_details.PARTNER_ID');
+                                })
+                                ->where(['partner.PARTNER_ID' => $request['appId'], 'partner_details.PARTNER_KEY' => $request['appKey']])
+                                ->first() ?? null;
 
-        if($user) 
+        if($user)
         {
             $request['user']    = $user->toArray();
             return $next($request);

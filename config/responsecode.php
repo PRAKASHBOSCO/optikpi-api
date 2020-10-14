@@ -28,11 +28,12 @@ return $codes = [
 
         'authenticateMiddleware'        => [
             'appId.required'            => 15113,
-            'appId.min'                 => 15114,
-            'appId.max'                 => 15115,
+            'appId.integer'             => 15114,
+            // 'appId.max'                 => 15115,
             'appKey.required'           => 15116,
-            'appKey.min'                => 15117,
-            'appKey.max'                => 15118,
+            // 'appKey.min'                => 15117,
+            // 'appKey.max'                => 15118,
+            'credentialIncorrect'       => 15119
         ],
 
         'throttleRequestMiddleware'     => [

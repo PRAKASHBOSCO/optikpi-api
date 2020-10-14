@@ -20,6 +20,7 @@ return $messages = [
         15116                       => 'appKey field is required',
         15117                       => 'appKey must be minimum 10 characters',
         15118                       => 'appKey must be maximum 10 characters',
+        15106                       => 'hash-key invalid',
     /*
     |--------------------------------------------------------------------------
     | Common Error Response Code

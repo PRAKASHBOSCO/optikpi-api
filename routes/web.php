@@ -17,6 +17,6 @@ $router->group(['prefix' => 'v1'], function () use ($router)
 {
     $router->group(['middleware' => 'auth'], function () use ($router) 
     {
-        $router->post('/opticBonus', ['as' => 'opticBonus','uses' => 'v1\ServiceController@opticBonus']);
+        $router->post('/addBonus', ['as' => 'opticBonus','uses' => 'v1\ServiceController@opticBonus']);
     });
 });

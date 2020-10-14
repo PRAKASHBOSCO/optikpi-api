@@ -37,26 +37,20 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     | Protected Properties
     |--------------------------------------------------------------------------
     */
-        protected $primaryKey                   = 'USER_ID';
+        protected $primaryKey                   = 'PARTNER_ID';
 
-        protected $table                        = 'user';
-
-        /**
-         * The attributes that are mass assignable.
-         *
-         * @var array
-         */
-        protected $fillable = [
-            'CALL_BACK_URL',
-        ];
+        protected $table                        = 'partner';
 
     /*
     |--------------------------------------------------------------------------
     | Constant Variables
     |--------------------------------------------------------------------------
     */
-        const CREATED_AT            = 'CREATED_DATE';
-        const UPDATED_AT            = 'UPDATED_DATE';
+        const CREATED_AT            = 'PARTNER_CREATED_ON';
+        const UPDATED_AT            = 'PARTNER_MODIFIED_ON';
+        const STATUS_ACTIVE         = 1;
+        const STATUS_INACTIVE       = 2;
+        const STATUS_BLOCKED        = 3;
 
     /*
     |--------------------------------------------------------------------------

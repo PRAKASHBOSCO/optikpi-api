@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
-use App\Models\Transaction;
+use App\Models\B2BTransactionHistory;
 
 
 /**
@@ -49,7 +49,7 @@ class ServiceController extends BaseController
 
             $url                = env('OPTIKPI_API_URL').'api/Opticbonus';
 
-            $referenceNo        = "121".$request['user']['USER_ID'].date('dmyhis');
+            $referenceNo        = "121".$request['user']['PARTNER_ID'].date('dmyhis');
 
             $data                   = [
                 'bonusId'           => $request->bonusId,
@@ -66,7 +66,7 @@ class ServiceController extends BaseController
 
             $status             = ($response['response']['response_code'] == 100007) ? 1 : 0;
 
-            $transaction        = Transaction::createTransactionLog($referenceNo, $request->bonusId, $request->playerId, $status, json_encode($response));
+            $transaction        = B2BTransactionHistory::createTransactionLog($referenceNo, $request->bonusId, $request->playerId, $status, json_encode($response));
 
             if($status)
             {

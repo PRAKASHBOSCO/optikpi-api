@@ -83,7 +83,8 @@ $app->configure('responseMessages');
 // ]);
 
 $app->routeMiddleware([
-    'auth' => App\Http\Middleware\Authenticate::class,
+    'auth'              => App\Http\Middleware\Authenticate::class,
+    'hashCheck'         => App\Http\Middleware\HashCheckMiddleware::class,
 ]);
 
 /*
