@@ -1,7 +1,5 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,12 +11,6 @@
 |
 */
 
-$router->group(['prefix' => 'v1'], function () use ($router) 
-{
-    $router->group(['middleware' => 'auth'], function () use ($router) 
-    {
-        $router->post('/addBonus', ['as' => 'opticBonus','uses' => 'v1\ServiceController@opticBonus']);
-
-        $router->post('/bonusList', ['as' => 'promoList','uses' => 'v1\ServiceController@promoList']);
-    });
+$router->get('/', function () use ($router) {
+    return $router->app->version();
 });

@@ -18,4 +18,17 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    RewriteCond %{REQUEST_METHOD} OPTIONS
+    RewriteRule ^(.*)$ $1 [L,R=204]
+
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+
+    Header always set Access-Control-Max-Age 1728000
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "POST,GET,HEAD,OPTIONS,PUT,DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization, hash-key"
+    Header always set Access-Control-Allow-Credentials true
+
 </IfModule>

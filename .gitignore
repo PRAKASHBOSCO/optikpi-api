@@ -3,4 +3,7 @@
 Homestead.json
 Homestead.yaml
 .env
-.phpunit.result.cache
+/nbproject/private/
+/nbproject/
+.vscode
+/public/images

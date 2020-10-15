@@ -1,14 +1,32 @@
 <?php
-
+/**
+ * Authenticate Middleware.
+ *
+ * Note : This Middleware Is Only Used For User Modules
+ *
+ * @package   AcePoker
+ * @author    Prakash.j <prakash.j@digient.in>
+ */
 namespace App\Http\Middleware;
 
-use Closure;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Config;
-use App\Models\User;
+    /*
+    |--------------------------------------------------------------------------
+    | Used Classes
+    |--------------------------------------------------------------------------
+    */
+    use Closure;
+    use Illuminate\Http\Response;
+    use Illuminate\Support\Facades\Config;
+    use App\User;
 
+/**
+ * Authenticate class
+ *
+ * @author Prakash.j <prakash.j@digient.in>
+ */
 class Authenticate
 {
+
     /**
      * Handle an incoming request.
      *
@@ -58,4 +76,10 @@ class Authenticate
         return returnResponse([$codes['credentialIncorrect']]);
         
     }
+
+    /*
+    |--------------------------------------------------------------------------|
+    |         xxxxxxxxxxxx     End Of Document     xxxxxxxxxxxxx               |
+    |--------------------------------------------------------------------------|
+    */
 }

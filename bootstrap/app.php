@@ -6,8 +6,6 @@ require_once __DIR__.'/../vendor/autoload.php';
     dirname(__DIR__)
 ))->bootstrap();
 
-date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
-
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -23,13 +21,11 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app = new \Dusterio\LumenPassport\Lumen7Application(
-//     dirname(__DIR__)
-// );
+// $app->register(Jenssegers\Mongodb\MongodbServiceProvider::class);
 
-$app->withFacades();
+ $app->withFacades();
 
-$app->withEloquent();
+ $app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -54,21 +50,6 @@ $app->singleton(
 
 /*
 |--------------------------------------------------------------------------
-| Register Config Files
-|--------------------------------------------------------------------------
-|
-| Now we will register the "app" configuration file. If the file exists in
-| your configuration directory it will be loaded; otherwise, we'll load
-| the default version. You may register other files below as needed.
-|
-*/
-
-$app->configure('app');
-$app->configure('responsecode');
-$app->configure('responseMessages');
-
-/*
-|--------------------------------------------------------------------------
 | Register Middleware
 |--------------------------------------------------------------------------
 |
@@ -78,13 +59,26 @@ $app->configure('responseMessages');
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->middleware([
+    LumenMiddlewareTrimOrConvertString\TrimStrings::class,
+    LumenMiddlewareTrimOrConvertString\ConvertEmptyStringsToNull::class,
+ ]);
 
 $app->routeMiddleware([
+    // 'maintainanceMode'  => App\Http\Middleware\CheckMaintananceMode::class,
+    // 'hashCheck'         => App\Http\Middleware\HashCheckMiddleware::class,
     'auth'              => App\Http\Middleware\Authenticate::class,
-    'hashCheck'         => App\Http\Middleware\HashCheckMiddleware::class,
+    // 'ipcheck'           => App\Http\Middleware\IpMiddleware::class,
+    // 'authUser'          => App\Http\Middleware\UserAuthenticateMiddleware::class,
+    // 'csp'               => App\Http\Middleware\ContentSecurityPolicyHeaders::class,
+    // 'noCache'           => App\Http\Middleware\NoCache::class,
+    // 'securityHeaders'   => App\Http\Middleware\SecurityHeaders::class,
+    // 'throttleRequests'  => App\Http\Middleware\ThrottleRequests::class,
+    // 'responseHeader'    => App\Http\Middleware\ResponseHeaderMiddleware::class,
+    // 'trustedHandshake'  => App\Http\Middleware\TrustedHandshakeMiddleware::class,
+    // 'trustProxies'      => App\Http\Middleware\TrustProxies::class,
+    // 'tracking'          => App\Http\Middleware\TrackingMiddleware::class,
+    // 'versioning'        => App\Http\Middleware\Versioning::class,
 ]);
 
 /*
@@ -101,6 +95,18 @@ $app->routeMiddleware([
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
+// $app->register(Illuminate\Mail\MailServiceProvider::class);
+// $app->register(Illuminate\Redis\RedisServiceProvider::class);
+
+$app->register(Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class);
+
+// $app->register(Orumad\ConfigCache\ServiceProviders\ConfigCacheServiceProvider::class);
+
+// $app->register(Stevebauman\Location\LocationServiceProvider::class);
+// $app->configure('location');
+
+// $app->register(Fideloper\Proxy\TrustedProxyServiceProvider::class);
+// $app->configure('trustedproxy');
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +123,42 @@ $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
+    require __DIR__.'/../routes/api.php';
 });
+
+
+/** Url Configuration
+ * Author : Prakash
+ */
+// $app->configure('url');
+
+/** Response Code Configuration
+ * Author : Prakash
+ */
+$app->configure('responsecode');
+$app->configure('responseMessages');
+
+/** Session Configuration
+ * Author : Prakash
+ */
+// $app->configure('session');
+
+// $app->register(Illuminate\Session\SessionServiceProvider::class);
+
+// $app->bind(Illuminate\Session\SessionManager::class, function ($app) {
+//     return $app->make('session');
+// });
+
+// $app->middleware([
+//     'Illuminate\Session\Middleware\StartSession'
+// ]);
+
+/** Mail Configuration
+ * Author : Prakash
+ */
+// $app->configure('mail');
+// $app->alias('mailer', Illuminate\Mail\Mailer::class);
+// $app->alias('mailer', Illuminate\Contracts\Mail\Mailer::class);
+// $app->alias('mailer', Illuminate\Contracts\Mail\MailQueue::class);
 
 return $app;
