@@ -11,9 +11,9 @@ class Kernel extends ConsoleKernel
      * The Artisan commands provided by your application.
      *
      * @var array
+     * @author Prakash.j <prakash.j@digient.in>
      */
     protected $commands = [
-        \Illuminate\Console\KeyGenerateCommand::class,
     ];
 
     /**
@@ -21,9 +21,9 @@ class Kernel extends ConsoleKernel
      *
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
+     * @author Prakash.j <prakash.j@digient.in>
      */
     protected function schedule(Schedule $schedule)
     {
-        //
     }
 }

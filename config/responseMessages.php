@@ -20,6 +20,7 @@ return $messages = [
         15116                       => 'appKey field is required',
         15117                       => 'appKey must be minimum 10 characters',
         15118                       => 'appKey must be maximum 10 characters',
+        15106                       => 'hash-key invalid',
     /*
     |--------------------------------------------------------------------------
     | Common Error Response Code
@@ -40,6 +41,18 @@ return $messages = [
         10004                       => 'playerId must be integer',
         10019                       => 'api resulted failed status',
         10020                       => 'optic bonus success',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Promo List Service Response Code
+    |--------------------------------------------------------------------------
+    */
+        10021                       => 'bonusType field is required',
+        10022                       => 'bonusType must be string',
+        10023                       => 'page field is required',
+        10024                       => 'page must be integer',
+        10029                       => 'api resulted failed status',
+        10030                       => 'bonus list success'
     /*
     |--------------------------------------------------------------------------|
     |         xxxxxxxxxxxx     End Of Document     xxxxxxxxxxxxx               |

@@ -28,11 +28,12 @@ return $codes = [
 
         'authenticateMiddleware'        => [
             'appId.required'            => 15113,
-            'appId.min'                 => 15114,
-            'appId.max'                 => 15115,
+            'appId.integer'             => 15114,
+            // 'appId.max'                 => 15115,
             'appKey.required'           => 15116,
-            'appKey.min'                => 15117,
-            'appKey.max'                => 15118,
+            // 'appKey.min'                => 15117,
+            // 'appKey.max'                => 15118,
+            'credentialIncorrect'       => 15119
         ],
 
         'throttleRequestMiddleware'     => [
@@ -72,6 +73,21 @@ return $codes = [
             'failed'                => 10019,
             'success'               => 10020
         ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | PromoList Service Response Code
+    |--------------------------------------------------------------------------
+    */
+        'promoList'                     => [
+            'bonusType.required'        => 10021,
+            'bonusType.string'          => 10022,
+            'page.required'             => 10023,
+            'page.integer'              => 10024,
+            'failed'                    => 10029,
+            'success'                   => 10030
+        ],
+
     /*
     |--------------------------------------------------------------------------|
     |         xxxxxxxxxxxx     End Of Document     xxxxxxxxxxxxx               |
