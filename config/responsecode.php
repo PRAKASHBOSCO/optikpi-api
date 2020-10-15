@@ -73,6 +73,21 @@ return $codes = [
             'failed'                => 10019,
             'success'               => 10020
         ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | PromoList Service Response Code
+    |--------------------------------------------------------------------------
+    */
+        'promoList'                     => [
+            'bonusType.required'        => 10021,
+            'bonusType.string'          => 10022,
+            'page.required'             => 10023,
+            'page.integer'              => 10024,
+            'failed'                    => 10029,
+            'success'                   => 10030
+        ],
+
     /*
     |--------------------------------------------------------------------------|
     |         xxxxxxxxxxxx     End Of Document     xxxxxxxxxxxxx               |
